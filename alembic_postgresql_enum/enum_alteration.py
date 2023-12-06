@@ -420,7 +420,7 @@ class AddEnumValuesOp(alembic.operations.ops.MigrateOperation):
         enum_type_name = f"{schema}.{enum_name}"
         for added_value in added_values:
             connection.execute(sqlalchemy.text(
-                f"""ALTER TYPE {enum_type_name} ADD VALUE {added_value};"""
+                f"""ALTER TYPE {enum_type_name} ADD VALUE '{added_value}';"""
             ))
 
     @classmethod
