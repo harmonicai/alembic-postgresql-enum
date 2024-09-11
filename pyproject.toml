@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "alembic-postgresql-enum"
-version = "0.4.4"
+version = "0.4.5"
 description = "Alembic autogenerate support for creation, alteration and deletion of enums"
 authors = ["RustyGuard"]
 license = "MIT"
@@ -22,7 +22,7 @@ classifiers = [
 "Source code" = "https://github.com/RustyGuard/alembic-postgresql-enum"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.9"
 SQLAlchemy = ">=1.4"
 alembic = ">=1.7"
 

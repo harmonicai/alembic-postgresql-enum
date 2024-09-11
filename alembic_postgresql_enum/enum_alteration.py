@@ -258,12 +258,8 @@ class SyncEnumValuesOp(alembic.operations.ops.MigrateOperation):
 
 @alembic.autogenerate.render.renderers.dispatch_for(SyncEnumValuesOp)
 def render_sync_enum_value_op(autogen_context: AutogenContext, op: SyncEnumValuesOp):
-    if op.is_column_type_import_needed:
-        autogen_context.imports.add('from alembic_postgresql_enum import ColumnType')
-
-    return (f"op.sync_enum_values({op.schema!r}, {op.name!r}, {op.new_values!r},\n"
-            f"                    {op.affected_columns!r},\n"
-            f"                    enum_values_to_rename=[])")
+    # HACKY: disabling this renderer but keeping it because the reverse() for adding uses this
+    return ''           
 
 
 
@@ -473,6 +469,9 @@ class AddEnumValuesOp(alembic.operations.ops.MigrateOperation):
 def render_add_enum_value_op(autogen_context: AutogenContext, op: AddEnumValuesOp):
     if op.is_column_type_import_needed:
         autogen_context.imports.add('from alembic_postgresql_enum import ColumnType')
+    
+    if not op.added_values:
+        return ''
 
     return (f"op.add_enum_values({op.schema!r}, {op.name!r}, {op.added_values!r},\n"
             f"                    {op.affected_columns!r},\n"
